@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const booksRoutes = require("./routes/books");
+app.use("/public", express.static("public"));
 
 const app = express();
 const PORT = 3000;
