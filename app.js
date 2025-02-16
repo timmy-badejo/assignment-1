@@ -1,24 +1,19 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-const booksRoutes = require("./routes/books.js");
-
 
 const app = express();
 const PORT = 3000;
 
-// Middleware
 app.use(bodyParser.json());
-app.use("/public", express.static("public"));
-app.use("/books", booksRoutes);
 
-// 404 Error Handling
-app.use((req, res) => {
-    res.status(404).json({ error: "Endpoint not found" });
+app.get("/", (req, res) => {
+    res.send("Reading List API is running...");
 });
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
 
 //GET all books: GET http://localhost:3000/books
 //GET a book by ID: GET http://localhost:3000/books/1
