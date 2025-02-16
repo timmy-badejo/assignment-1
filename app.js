@@ -6,6 +6,7 @@ const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
+app.use("/public", express.static("public"));
 app.use("/books", booksRoutes);
 
 app.use((req, res) => {
