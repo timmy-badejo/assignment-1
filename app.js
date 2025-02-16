@@ -1,13 +1,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
+const booksRoutes = require("./routes/books");
 
 const app = express();
 const PORT = 3000;
 
 app.use(bodyParser.json());
+app.use("/books", booksRoutes);
 
-app.get("/", (req, res) => {
-    res.send("Reading List API is running...");
+app.use((req, res) => {
+    res.status(404).json({ error: "Endpoint not found" });
 });
 
 app.listen(PORT, () => {
