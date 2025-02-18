@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
+// Initial array with 3 books
 let books = [
     {
         id: 1,
@@ -25,12 +26,15 @@ let books = [
     }
 ];
 
+// Function to find a book by ID
+const findBook = (id) => books.find((b) => b.id === parseInt(id));
+
 // GET all books
 router.get("/", (req, res) => res.json(books));
 
 // GET a single book by ID
 router.get("/:id", (req, res) => {
-    const book = books.find(b => b.id === parseInt(req.params.id));
+    const book = findBook(req.params.id);
     if (!book) return res.status(404).json({ error: "Book not found" });
     res.json(book);
 });
@@ -56,7 +60,7 @@ router.post("/", (req, res) => {
 
 // PUT (Update) a book by ID
 router.put("/:id", (req, res) => {
-    const book = books.find(b => b.id === parseInt(req.params.id));
+    const book = findBook(req.params.id);
     if (!book) return res.status(404).json({ error: "Book not found" });
 
     const { title, author, imageUrl, year } = req.body;
@@ -70,7 +74,7 @@ router.put("/:id", (req, res) => {
 
 // DELETE a book by ID
 router.delete("/:id", (req, res) => {
-    const bookIndex = books.findIndex(b => b.id === parseInt(req.params.id));
+    const bookIndex = books.findIndex((b) => b.id === parseInt(req.params.id));
     if (bookIndex === -1) return res.status(404).json({ error: "Book not found" });
 
     books.splice(bookIndex, 1);
@@ -78,6 +82,8 @@ router.delete("/:id", (req, res) => {
 });
 
 module.exports = router;
+
+
 
 
 
