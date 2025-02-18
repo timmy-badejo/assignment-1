@@ -5,10 +5,16 @@ const booksRoutes = require("./routes/books");
 const app = express();
 const PORT = 3000;
 
+// Middleware for parsing JSON
 app.use(bodyParser.json());
+
+// Serve static images from the public folder
 app.use("/public", express.static("public"));
+
+// Use the books router
 app.use("/books", booksRoutes);
 
+// Catch-all route for invalid endpoints
 app.use((req, res) => {
     res.status(404).json({ error: "Endpoint not found" });
 });
@@ -16,6 +22,7 @@ app.use((req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
 
 
 
